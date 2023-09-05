@@ -1,2 +1,3 @@
-book
+book/
 doctest_cache/
+target/

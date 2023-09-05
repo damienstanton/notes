@@ -2,7 +2,8 @@
 name = "libnotes"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+# this key is only needed to obviate which binary should be run from the workspace root.
+default-run = "notes"
 
 [dependencies]
+anyhow = "1.0.75"

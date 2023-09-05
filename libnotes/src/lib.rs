@@ -1,1 +1,1 @@
-pub fn foo() {}
+pub mod selfref;
