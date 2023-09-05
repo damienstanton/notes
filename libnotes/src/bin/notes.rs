@@ -1,4 +1,7 @@
-fn main() {
-    libnotes::foo();
-    println!("OK");
+use anyhow::Result;
+use libnotes::selfref::read;
+
+fn main() -> Result<()> {
+    read()?;
+    Ok(())
 }
