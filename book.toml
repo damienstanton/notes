@@ -1,0 +1,21 @@
+[book]
+authors = ["Damien Stanton"]
+language = "en"
+multilingual = false
+src = "src"
+title = "DS Notes"
+
+[preprocessor.katex]
+after = ["links"]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[preprocessor.keeper]
+command = "mdbook-keeper"
+manifest_dir = "."
+externs = ["notebook"]
+
+[output]
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]

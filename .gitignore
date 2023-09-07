@@ -1,0 +1,6 @@
+book/
+target/
+doctest_cache/
+# sources for maelstrom
+src/bin/lib/
+store/
