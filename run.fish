@@ -3,8 +3,9 @@
 set commands distsys
 
 function distsys
-    cargo b && ./src/bin/maelstrom test -w echo \
-        --bin ./target/debug/notebook \
+    set exe $argv[2]
+    cargo b && ./src/bin/maelstrom test -w $exe \
+        --bin ./target/debug/$exe \
         --node-count 1 \
         --time-limit 10
 end
@@ -19,7 +20,7 @@ end
 set cmd $argv[1]
 switch $cmd
     case in $commands
-        $cmd
+        $cmd $argv
     case help
         help
     case "*"
