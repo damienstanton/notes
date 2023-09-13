@@ -5,6 +5,9 @@ multilingual = false
 src = "src"
 title = "DS Notes"
 
+[rust]
+edition = "2021"
+
 [preprocessor.katex]
 after = ["links"]
 

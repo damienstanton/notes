@@ -2,12 +2,20 @@
 
 set commands distsys
 
-function distsys
-    set exe $argv[2]
-    cargo b && ./src/bin/maelstrom test -w $exe \
-        --bin ./target/debug/$exe \
+function echo-test
+    cargo b && ./src/bin/maelstrom test -w echo \
+        --bin ./target/debug/echo \
         --node-count 1 \
         --time-limit 10
+end
+
+function unique-ids
+    cargo b && ./src/bin/maelstrom test -w unique-ids \
+        --bin ./target/debug/unique-ids \
+        --node-count 3 \
+        --time-limit 30 \
+        --availability total \
+        --nemesis partition
 end
 
 function help
@@ -15,14 +23,23 @@ function help
 end
 
 function main
+    help
 end
 
 set cmd $argv[1]
 switch $cmd
-    case in $commands
-        $cmd $argv
-    case help
-        help
-    case "*"
-        main
+    case distsys
+        set sub $argv[2]
+        switch $sub
+            case unique-ids
+                unique-ids
+            case echo
+                echo-test
+            case "*"
+                echo "unrecognized maelstrom test: $sub"
+            case help
+                help
+            case "*"
+                main
+        end
 end
