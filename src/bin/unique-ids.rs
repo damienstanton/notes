@@ -2,16 +2,16 @@ use anyhow::{bail, Context, Result};
 use notebook::oss::flyer::{run_flyer, Body, Message, Node};
 use serde::{Deserialize, Serialize};
 use std::io::{StdoutLock, Write};
+use ulid::Ulid;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(tag = "type")]
 #[serde(rename_all = "snake_case")]
 pub enum Payload {
-    Echo {
-        echo: String,
-    },
-    EchoOk {
-        echo: String,
+    Generate,
+    GenerateOk {
+        #[serde(rename = "id")]
+        guid: String,
     },
     Init {
         node_id: String,
@@ -20,28 +20,31 @@ pub enum Payload {
     InitOk,
 }
 
-pub struct EchoNode {
+pub struct UniqueNode {
     pub id: usize,
 }
-impl Node<Payload> for EchoNode {
+impl Node<Payload> for UniqueNode {
     fn step(&mut self, input: Message<Payload>, output: &mut StdoutLock) -> Result<()> {
         match input.body.payload {
-            Payload::Echo { echo } => {
+            Payload::Generate => {
+                let guid = Ulid::new().to_string();
                 let reply = Message {
                     src: input.dst,
                     dst: input.src,
                     body: Body {
                         id: Some(self.id),
                         in_reply_to: input.body.id,
-                        payload: Payload::EchoOk { echo: echo },
+                        payload: Payload::GenerateOk { guid },
                     },
                 };
                 serde_json::to_writer(&mut *output, &reply)
-                    .context("serialize response to echo")?;
+                    .context("serialize response to generate")?;
                 output.write_all(b"\n").context("trailing newline")?;
                 self.id += 1;
             }
-            Payload::EchoOk { .. } => {}
+            Payload::GenerateOk { .. } => {
+                bail!("should never receive generateok")
+            }
             Payload::Init { .. } => {
                 let reply = Message {
                     src: input.dst,
@@ -63,6 +66,7 @@ impl Node<Payload> for EchoNode {
     }
 }
 fn main() -> Result<()> {
-    run_flyer(EchoNode { id: 0 })?;
+    // TODO: ~ 59:29
+    run_flyer(UniqueNode { id: 0 })?;
     Ok(())
 }

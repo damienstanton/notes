@@ -1,7 +1,15 @@
 # Summary
 
-- [Open Source](./open_source.md)
-  - [Distsys Challenges](./distsys_rs.md)
+- [About](./about.md)
+  - [Me](./me.md)
 
-- [MSCS](./mscs.md)
+- [Open Source Notes](./open_source.md)
+  - [Distsys Challenges](./distsys_rs.md)
+  - [Dotsync](./dotsync.md)
+    - [Dev workflow (presentation)](./workflow.md)
+
+- [MSCS Notes](./mscs.md)
   - [CSCA 5414](./5414.md)
+
+- [Editorials](./editorials.md)
+  - [Placeholder](./placeholder.md)

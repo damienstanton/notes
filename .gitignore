@@ -1,6 +1,11 @@
-book/
 target/
+# generated mdbook sources
+book/
+# mdbook keeper test cache (allows import of local crates)
 doctest_cache/
+# pyenv for MSCS notebooks
+env/
 # sources for maelstrom
 src/bin/lib/
 store/
+.DS_Store
