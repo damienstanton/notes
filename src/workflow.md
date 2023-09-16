@@ -1,8 +1,16 @@
-# Workflow
+---
+marp: true
+class:
+    - invert
+---
 
-## ➡ _git workflow based on ["trunk-based development"][1]_
+# (An opinionated) dev workflow
 
-- [ ] Pull from `main`
+## via ["trunk-based development"][1]
+
+---
+
+✅ Pull from `main`
 
 ```zsh
 # from within the dotsync directory
@@ -10,7 +18,9 @@ $ git checkout main
 $ git pull
 ```
 
-- [ ] Checkout working branch
+---
+
+✅ Checkout working branch
 
 ```zsh
 # from within the dotsync directory
@@ -20,7 +30,9 @@ $ git checkout some_branch
 $ git checkout -b some_branch
 ```
 
-- [ ] Commit some changes
+---
+
+✅ Commit some changes
 
 ```zsh
 # from within the dotsync directory
@@ -29,9 +41,13 @@ $ git commit -am "Here is a new thing"
 # alternatively, use the VSCode GUI
 ```
 
-- [ ] Open a PR
-- [ ] Merge the PR (and delete the working branch)
-- [ ] Checkout and pull from `main`
+---
+
+✅ Open a PR
+
+✅ Merge the PR (and delete the working branch)
+
+✅ Checkout and pull from `main`
 
 ```zsh
 # from within the dotsync directory
@@ -39,28 +55,39 @@ $ git checkout main
 $ git pull
 ```
 
-## ➡ _Documentation and where to find stuff_
+---
 
-- [ ] [https://doc.rust-lang.org/std/][3]
-- [ ] [https://docs.rs][2]
-- [ ] Adding dependencies
+## Documentation and where to find stuff
+
+✅ [https://doc.rust-lang.org/std/][3]
+
+✅ [https://docs.rs][2]
+
+---
+
+✅ Adding dependencies
 
 ```zsh
 # from within the dotsync directory
 $ cargo add some_thing
 ```
 
-- [ ] Removing dependencies
+---
+
+✅ Removing dependencies
 
 ```zsh
 # from within the dotsync directory
 $ cargo remove some_thing
 ```
 
-## ➡ _Rust APIs / modules, and documentation_
+---
 
-- [ ] Split functionality into crates vs binaries
-- [ ] Documenting code
+## Rust APIs / modules, and documentation
+
+✅ Split functionality into crates (libraries and programs)
+
+✅ Documenting code
 
 ```zsh
 # from within the dotsync directory

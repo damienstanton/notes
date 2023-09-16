@@ -1,4 +1,7 @@
-# Distsys Challenges
+This section pertains to a follow-along session based on [this video][1] by Jon
+Gjengset.
+
+## Challenges
 
 - [x] Challenge 1: Echo
 
@@ -9,3 +12,5 @@ needed.
 
 - [ ] Challenge 2: Unique ID Generation
 - [ ] Challenge 3: Broadcast
+
+[1]: https://youtu.be/gboGyccRVXI?si=KH3kIhsdxz_j0qm1
