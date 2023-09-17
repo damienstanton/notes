@@ -1,7 +1,5 @@
 #!/usr/bin/env fish
 
-set commands distsys
-
 function echo-test
     cargo b && ./src/bin/maelstrom test -w echo \
         --bin ./target/debug/echo \
@@ -28,6 +26,8 @@ end
 
 set cmd $argv[1]
 switch $cmd
+    case book
+        mdbook serve --open
     case distsys
         set sub $argv[2]
         switch $sub
