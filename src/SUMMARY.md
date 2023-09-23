@@ -7,6 +7,7 @@
   - [Distsys Challenges](./distsys_rs.md)
   - [Dotsync](./dotsync.md)
     - [Dev workflow (presentation)](./workflow.md)
+  - [Computational Type Theory](./harper_ctt.md)
 
 - [MSCS Notes](./mscs.md)
   - [CSCA 5414](./5414.md)
