@@ -6,7 +6,7 @@
 - [Open Source Notes](./open_source.md)
   - [Distsys Challenges](./distsys_rs.md)
   - [Dotsync](./dotsync.md)
-    - [Dev workflow (presentation)](./workflow.md)
+    - [Dev workflow](./workflow.md)
 
 - [MSCS Notes](./mscs.md)
   - [CSCA 5414](./5414.md)

@@ -1,36 +1,29 @@
----
-marp: true
-class:
-    - invert
----
+## (An opinionated) dev workflow
 
-# (An opinionated) dev workflow
+### via ["trunk-based development"][1]
 
-## via ["trunk-based development"][1]
-
----
-
-✅ Pull from `main`
+✅ Pull from `main` to update your local machine
 
 ```zsh
 # from within the dotsync directory
 $ git checkout main
-$ git pull
+$ git pull --rebase
 ```
 
----
-
-✅ Checkout working branch
+✅ Checkout a working branch
 
 ```zsh
 # from within the dotsync directory
+# pull to get the latest refs - all published branches
+$ git pull --rebase
+
+# once you have the latest, you can checkout the new branch
 $ git checkout some_branch
 
-# `-b` will create a new local branch (to be published)
+# `-b` will create a new local branch and check it out automatically.
+# when you push, you will publish the branch automatically.
 $ git checkout -b some_branch
 ```
-
----
 
 ✅ Commit some changes
 
@@ -38,10 +31,10 @@ $ git checkout -b some_branch
 # from within the dotsync directory
 $ git commit -am "Here is a new thing"
 
+$ git push
+
 # alternatively, use the VSCode GUI
 ```
-
----
 
 ✅ Open a PR
 
@@ -52,18 +45,14 @@ $ git commit -am "Here is a new thing"
 ```zsh
 # from within the dotsync directory
 $ git checkout main
-$ git pull
+$ git pull --rebase
 ```
-
----
 
 ## Documentation and where to find stuff
 
 ✅ [https://doc.rust-lang.org/std/][3]
 
 ✅ [https://docs.rs][2]
-
----
 
 ✅ Adding dependencies
 
@@ -72,16 +61,12 @@ $ git pull
 $ cargo add some_thing
 ```
 
----
-
 ✅ Removing dependencies
 
 ```zsh
 # from within the dotsync directory
 $ cargo remove some_thing
 ```
-
----
 
 ## Rust APIs / modules, and documentation
 
