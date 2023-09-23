@@ -6,7 +6,7 @@
 - [Open Source Notes](./open_source.md)
   - [Distsys Challenges](./distsys_rs.md)
   - [Dotsync](./dotsync.md)
-    - [Dev workflow (presentation)](./workflow.md)
+    - [Dev workflow](./workflow.md)
   - [Computational Type Theory](./harper_ctt.md)
 
 - [MSCS Notes](./mscs.md)
