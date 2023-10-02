@@ -205,4 +205,11 @@ The extremal clause is that
   closed under "head-expansion" or alternatively "reverse execution".
 - $∎$
 
+## [Lecture 2][2]
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1U4w0159-Ls?si=tmRfnko1dvSBDNx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+### TODO 0:00
+
 [1]: https://youtu.be/LE0SSLizYUI?si=nFIdHEnJ2zHYoIcw
+[2]: https://youtu.be/1U4w0159-Ls?si=tmRfnko1dvSBDNx4
