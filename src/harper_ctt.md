@@ -208,7 +208,7 @@ The extremal clause is that
 
 ### A proposition/fact/claim
 
-- If $M \in Bool$ and $A type$ and $M_{1} \in A$ and $M_{2} \in A$, then
+- If $M \in Bool$ and $A\ type$ and $M_{1} \in A$ and $M_{2} \in A$, then
   $if(M_{1};M_{2})(M) \in A$
 
 **Proof**
