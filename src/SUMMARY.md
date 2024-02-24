@@ -3,14 +3,15 @@
 - [About](./about.md)
   - [Me](./me.md)
 
-- [Open Source Notes](./open_source.md)
-  - [Distsys Challenges](./distsys_rs.md)
-  - [Dotsync](./dotsync.md)
-    - [Dev workflow](./workflow.md)
+- [Independent study](./open_source.md)
   - [Computational Type Theory](./harper_ctt.md)
+  - [Algebraic Effects and Handlers](./bauer_algeff.md)
 
-- [MSCS Notes](./mscs.md)
+- [Sources](./code.md)
+
+- [MSCS](./mscs.md)
   - [CSCA 5414](./5414.md)
+  - [EMEA 5065](./5065.md)
 
 - [Editorials](./editorials.md)
   - [Placeholder](./placeholder.md)

@@ -1,6 +1,6 @@
 > # _Computational Type Theory_
 >
-> Bob Harper, OPLSS 2018
+> Bob Harper
 
 ## [Lecture 1][1]
 

@@ -1,3 +1,5 @@
+## 👋 Hello, I'm Damien
+
 This is a loosely collected set of notes on computer science and
 related/applicable fields of study.
 
