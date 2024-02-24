@@ -9,3 +9,4 @@ env/
 src/bin/lib/
 store/
 .DS_Store
+dist-newstyle/
