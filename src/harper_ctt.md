@@ -1,8 +1,10 @@
-> # _Computational Type Theory_
->
-> Bob Harper
+# _Computational Type Theory_
 
-## [Lecture 1][1]
+A lecture series given by Bob Harper at OPLSS 2018
+
+## Part One
+
+[Lecture 1][1]
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LE0SSLizYUI?si=YSw_ufskYlinuv9M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -16,37 +18,53 @@ References
 - Constable et al., _NuPRL System & Semantics_
 
 The plan is to develop type theory starting with computation, and developing a
-_theory of truth_ based on proofs. This contrasts with formalisms (e.g. theories
-of proofs, formal derivation, etc.). Not just playing the Coq/Agda/Lean video
-game!
+_theory of truth_ based on proofs. The connection with formalisms (e.g. theories
+of proofs, formal derivation, etc.) comes later.
+
+The idea is to emphasize _not_ just playing the Coq/Agda/Lean video game!
 
 ### Start with a programming language
 
 ---
 
-The language has a deterministic semantics (via its transition system).
+The language has a deterministic semantics via a transition system.
 
-- Forms of expression $E$
-- Two judgement forms
-  - $E\ val$ meaning $E$ is fully evaluated
-  - $E \mapsto E'$ meaning one simplification of $E$
-- Derived notion $E \Downarrow E_{\circ}$ meaning $E \mapsto ^{*} E_{\circ}
-  \
-  val$
+We have forms of expression called
 
-For example: $if(E_1;E_2)(E)$
+> $$E$$
+
+and two judgement forms called
+
+> $$E\ val$$
+>
+> $$E \mapsto E'$$
+
+These mean that $E$ is fully evaluated, and that we have performed one
+simplification of $E$, respectively.
+
+We have a derived notion
+
+> $$E \Downarrow E_{\circ}$$
+
+which we can understand by way of a mapping
+
+> $$E \mapsto ^{\star} E_{\circ}\ val$$
+
+As an example expression
+
+> $$if(E_1;E_2)(E)$$
 
 ### Operational semantics for binary decision diagrams
 
 ---
 
-### $\frac{E\ \longmapsto\ E'}{if(E_1;E_2)(E)\ \longmapsto\ if(E_1;E_2)(E')}$
+> $$\frac{E\ \longmapsto\ E'}{if(E_1;E_2)(E)\ \longmapsto\ if(E_1;E_2)(E')}$$
 
-$\frac{}{\begin{cases} if(E_1;E_2)(true)\ \longmapsto\ E_1 \\
-if(E_1;E_2)(false)\
-\longmapsto\ E_2 \end{cases}}$
+> $$\frac{}{if(E_1;E_2)(true)\ \longmapsto\ E_1}$$
 
-### Principle: types are specifications of program _behavior_
+> $$\frac{}{if(E_1;E_2)(false) \longmapsto\ E_2}$$
+
+#### Principle: types are specifications of program _behavior_
 
 Judgements are _expressions of knowledge_, in the intuitionistic sense
 (Brouwer), based on the premise that mathematics is a human activity, thus
@@ -62,14 +80,23 @@ $M$ and $A$ here are _programs_, and are behavioral, not structural.
 $\begin{cases} A\
 type \\ M\ \in\ A \end{cases}$
 
-For example: $if(17;\_)(true)\ \in\ Nat$, why? Because the simplification step
-entails $17\ \in Nat$
+For example:
 
-Further, $if(Nat;Bool)(M)$ is a type _precisely when_ $M\ \in\ Bool$
+> $$if(17;\_)(true)\ \in\ Nat$$
+
+Why? Because the simplification step entails $17\ \in Nat$.
+
+Further:
+
+> $$if(Nat;Bool)(M)$$
+
+is a type _precisely when_:
+
+> $$M\ \in\ Bool$$
 
 This applies to type expressions as well, e.g.
 
-$if(17;true)(M)\ \in\ if(Nat;Bool)(M)$
+> $$if(17;true)(M)\ \in\ if(Nat;Bool)(M)$$
 
 This helps explain why a deterministic operational semantics is required,
 because it is _the same $M$_ in the simplification step. Types/specifications
@@ -79,19 +106,35 @@ because it is _the same $M$_ in the simplification step. Types/specifications
 
 ---
 
-$seq(n)\ type$ when $n\ \in\ Nat$
+We can make a judgement that:
 
-$n:\ Nat\ \gg\ seq\ type$
+> $$seq(n)\ type$$
 
-That is, a family of types indexed by a type.
+precisely when
 
-Another way to phrase it, which emphasizes the _indexing_ of a sequence by $n\
-\in\ Nat$ is
+> $$n\ \in\ Nat$$
 
-$\forall n\ \exists\ seq(n)$ where $seq(n) \doteq [0..n-1]$
+And that:
 
-In NuPRL notation: $f\ \in\ n: Nat \rightarrow\ Seq(n)$, which in the literature
-may also be represented as $\Pi n: Nat\ Seq(n)$
+> $$n:\ Nat\ \gg\ seq\ type$$
+
+That is, a family of types is _indexed_ by a type. Another way to phrase it,
+which emphasizes the indexing of a sequence by $n\
+\in\ Nat$ is:
+
+> $$\forall n\ \exists\ seq(n)$$
+
+where:
+
+> $$seq(n) \doteq [0..n-1]$$
+
+In NuPRL notation:
+
+> $$f\ \in\ n: Nat \rightarrow\ Seq(n)$$
+
+This is sometimes represented in the literature as:
+
+> $$\Pi n: Nat\ Seq(n)$$
 
 ### Functionality
 
@@ -100,11 +143,23 @@ may also be represented as $\Pi n: Nat\ Seq(n)$
 Families (of types, of elements) must respect **equality of indices**. _So what
 is equality?_
 
-Trivially, $seq(2+2)$ is "the same as" $seq(4)$, or
+Trivially:
 
-$seq(if(17;18)(M))$ is "the same as" $if(seq(17);seq(18))(M)$
+> $$seq(2+2)$$
 
-Which can be clarified with a slight change in notation, substituting $a: Bool$
+is "the same as"
+
+> $$seq(4)$$
+
+or in other words
+
+> $$seq(if(17;18)(M))$$
+
+is "the same as"
+
+> $$if(seq(17);seq(18))(M)$$
+
+which can be clarified with a slight change in notation, substituting $a: Bool$
 for $M$
 
 As a type structure gets richer, _when two things are equal is a property of the
@@ -121,100 +176,158 @@ investigating when two types are the same.
 
 ---
 
-When $A$ is a type, $A \doteq A'$, exact equality of types
+When $A$ is a type:
 
-When $M \in A$, $M \doteq M' \in A$, exact equality of elements
+> $$A \doteq A'$$
+
+specifies an exact equality of types.
+
+When $M \in A$:
+
+> $$M \doteq M' \in A$$
+
+specifies an exact equality of elements.
 
 Thus, equal indices deterministically produce equal results (this is also why a
 deterministic operational semantics is a necessity). A term for this is
 **equisatisfaction**.
 
-A simple example is
+A simple example is the following:
 
-$2 \doteq 4 \in Nat$ cannot be true...
+> $$2 \doteq 4 \in Nat$$
 
-However, $2 \doteq 4 \in Nat/2\ (evens)$ _is true!_. It always depends on type
-inhabitants.
+cannot be true...
 
-This is in contrast to traditional formalized type theory, where equality is
-axiomatized as being type-independent, which is a fallacy.
+However:
 
-Another possible notation for $M \doteq M' \in A$ is $M \doteq_{A} M'$.
+> $$2 \doteq 4 \in Nat/2\ (evens)$$
+
+_is true!_. It always depends on type inhabitants.
+
+This is in contrast to the older tradition in formalized type theory of axioms
+as being somehow type-independent. By the principle of propositions-as-types, we
+now know this is is a logical fallacy.
+
+To make the notation a little clearer, from here on we will try to write:
+
+> $$M \doteq M' \in A$$
+
+as:
+
+> $$M\doteq_{A} M'$$
 
 ### A computational semantics
 
 ---
 
-$A \doteq A'$ means $ \begin{cases} A \Downarrow A_{\circ} \\ A' \Downarrow
-A'_{\circ} \\ A_{\circ} \doteq_{\circ} A'_{\circ} \end{cases}$
+> $$A \doteq A'$$
+
+means that
+
+> $$A \doteq A' \begin{cases} A \Downarrow A_{\circ} \\ A' \Downarrow A'_{\circ}
+
+\> \\ A_{\circ} \doteq_{\circ} A'_{\circ} \end{cases}$$
 
 $A_{\circ}$ and $A'_{\circ}$ are equal _type-values_, or what Martin-Löf called
 _canonical types_.
 
-$M \doteq M' \in A$, where $A$ is a type. A type, again, is a program which
-evaluates to equal type-values.
+$M \doteq_{A} M'$ is thus a program which evaluates to equal type-values.
 
 ### A few core ideas
 
----
+Given that
 
-Given that $A \Downarrow A_{\circ}$ $A_{\circ} \doteq_{\circ} A_{\circ}$,
+> $$A \Downarrow A_{\circ} A_{\circ} \doteq_{\circ} A_{\circ}$$
 
 we can say
 
-$\begin{cases} M \Downarrow M_{\circ}\ &\&\ \\ M' \Downarrow M'_{\circ}\
-&\&\
-\\ M_{\circ} \doteq_{\circ} M'_{\circ} \in A_{\circ} \end{cases}$
+> $$\begin{cases} M \Downarrow M_{\circ}\ & \\ M' \Downarrow M'_{\circ}
 
-$a: A \gg B \doteq B'$ means
+\> & \\ M_{\circ} \doteq_{\circ} M'_{\circ} \in A_{\circ} \end{cases}$$
 
-$if\ (M \doteq M' \in A)\ then\ (B[M/a] \doteq B'[M'/a])$
+Thus
+
+> $$a: A \gg B \doteq B'$$
+
+means
+
+> $$if\ (M \doteq M' \in A)\ then\ (B[M/a] \doteq B'[M'/a])$$
 
 This induces a certain implication about type indexing, called _functionality_:
 
 Check that $ \begin{cases} a: A \gg B\ \text{where}\ B &\doteq\ B \\ M' &\doteq
 M' \in A\ \\ \text{implies}\ B[M/a] &\doteq B[M'/a] \end{cases} $
 
-A final example in the general case
+A final example in the general case:
 
-$a: A \gg N \doteq N'$ means
+> $$a: A \gg N \doteq N'$$
 
-$if\ M \doteq M' \in A\ then\ (N[M/a] \doteq N'[M'a] \in B[M/a])$
+means
 
-assuming that $a \gg B \doteq B$
+> $$if\ M \doteq M' \in A\ then\ (N[M/a] \doteq N'[M'a] \in B[M/a])$$
+
+assuming
+
+> $$a \gg B \doteq B$$
 
 ### A specific example by deriving the Boolean type
 
 ---
 
-1. $Bool \doteq_{\circ} Bool$, i.e. $Bool$ _names_ a type-value (hence the $\
-   _{\circ}$).
+> $$Bool \doteq_{\circ} Bool$$
 
-2. What type does it name? The membership relation for canonical elements is
+i.e. $Bool$ _names_ a type-value (hence the $\_{\circ}$).
+
+What type does it name? The membership relation for canonical elements is
 
 $M_{\circ} \doteq M'_{\circ} \in_{\circ} Bool$ is the _strongest_ relation $\R$
 (though some literature calls this _least_, the extremal nature is what is
 important)
 
-such that $\R \subseteq (Exp\ \times Exp) \begin{cases} (true\ \doteq_{\circ}\
-true\ \in Bool)\ i.e.\ true\
-\in_{\circ} Bool\\ (false\ \doteq_{\circ}\ false\ \in Bool)\ i.e.\ false\
-\in_{\circ} Bool \end{cases} $
+such that
+
+> $$\R \subseteq (Exp\ \times Exp) \begin{cases} (true\ \doteq_{\circ}
+
+\> true\ \in Bool)\ i.e.\ true
+
+\> \in_{\circ} Bool\\ (false\ \doteq_{\circ}\ false\ \in Bool)\ i.e.\ false
+
+\> \in_{\circ} Bool \end{cases}$$
 
 The extremal clause is that
 
 1. The stated conditions hold.
 2. Nothing else!
 
-### A proposition/fact/claim
+We can now make proposition/fact/claim, and prove it. We'll use this format from
+here onward.
 
-- If $M \in Bool$ and $A\ type$ and $M_{1} \in A$ and $M_{2} \in A$, then
-  $if(M_{1};M_{2})(M) \in A$
+**_Fact_**
 
-**Proof**
+If
 
-- $\_ \in Bool$ is given by a universal property, the _least containing_ $
-  \begin{cases} true\ \in Bool \\ false\ \in Bool \end{cases} $
+> $$M \in Bool$$
+
+and
+
+> $$A\ type$$
+
+and
+
+> $$M_{1} \in A$$
+
+and
+
+> $$M_{2} \in A$$
+
+then
+
+> $$if(M_{1};M_{2})(M) \in A$$
+
+**_Proof_**
+
+- $\_ \in Bool$ is given by a universal property, the _least (or most)
+  containing_ $ \begin{cases} true\ \in Bool \\ false\ \in Bool \end{cases} $
 - Fix some type $A$, $M_{1} \in A$, $M_{2} \in A$.
 - If $M \in Bool$ then $if(M_{1};M_{2})(M) \in A$
 - Thus, $M \in Bool$ means $M \Downarrow M_{\circ}$ and either $\begin{cases}
@@ -225,56 +338,99 @@ The extremal clause is that
   closed under "head-expansion" or alternatively "reverse execution".
 - $\blacksquare$
 
-## [Lecture 2][2]
+## Part Two
+
+[Lecture 2][2]
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1U4w0159-Ls?si=tmRfnko1dvSBDNx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### A small recap of lecture 1
+### Where we are so far
 
 ---
 
-A type system consists of $A \doteq A$ with $A\ type\ iff\ A \doteq A$
+A type system consists of $A \doteq A$ with $A$ called a $type$ $iff$ $A \doteq
+A$.
 
-$M \doteq M$ with $M \in A\ iff\ M \doteq M \in A$
+$M \doteq M$ with $M \in A$ $iff$ $\ M \doteq M \in A$.
 
-Which is both _symmetric_ and _transitive_, that is
+The expression above is both _symmetric_ and _transitive_, that is
 
 If $A \doteq A'$ and $M \doteq M' \in A$ then $M \doteq M' \in A$
 
-**Hypotheticals express _functionality_**
+Hypotheticals express _functionality_:
 
-$a: A \gg B\ type$ means $B$ is a family of types that depends functionally on
-$a: A$.
+> $$a: A \gg B\ type$$
 
-$M \doteq M' \in A$ implies $B[M/a] \doteq B[M'/a]$
+This means $B$ is a family of types that depends functionally on $a: A$.
 
-$a: A \gg N \in B$ means $B$ is a family of _elements_. A family of elements is
-a mapping.
+> $$M \doteq M' \in A$$
 
-$M \doteq M' \in A$ implies $N[M/a] \doteq N[M'/a] \in B[M/a] \doteq B[M'/a]$
+implies
+
+> $$B[M/a] \doteq B[M'/a]$$
+
+> $$a: A \gg N \in B$$
+
+means that $B$ is a family of _elements_; A family of elements is a mapping.
+
+The expression
+
+> $$M \doteq M' \in A$$
+
+implies
+
+> $$N[M/a] \doteq N[M'/a] \in B[M/a] \doteq B[M'/a]$$
 
 Similarly for $B \doteq B'$, $N \doteq N' \in B$
 
 All of the above constitutes a type system defined in terms of evaluation (hence
-computational) using "certain constructions".
+computational) using the language of constructive mathematics.
+
+Now we can start to write down fragments of our own _type theories_.
 
 ### There exists a type system containing a type `bool`
 
 ---
 
-- $Bool \doteq Bool$
+Presuming
 
-- $M \doteq M' \in Bool$ iff either ${M \Downarrow true \choose M' \Downarrow
-  true }$ or ${M \Downarrow false \choose M' \Downarrow false}$
+> $$Bool \doteq Bool$$
 
-**Fact**
+The expression
 
-If $a: Bool \gg B\ type$ and $M_1 \in B[true/a]$ and $M_2 \in B[false/a]$ and $M
-\in Bool$
+> $$M \doteq M' \in Bool$$
 
-Then $if(M_1;M_2)(M) \in B[M/a]$
+is true $iff$ either
 
-**Proof**
+> $${M \Downarrow true \choose M' \Downarrow true }$$
+
+or
+
+> $${M \Downarrow false \choose M' \Downarrow false}$$
+
+**_Fact_**
+
+If
+
+> $$a: Bool \gg B\ type$$
+
+and
+
+> $$M_1 \in B[true/a]$$
+
+and
+
+> $$M_2 \in B[false/a]$$
+
+and
+
+> $$M\in Bool$$
+
+then
+
+> $$if(M_1;M_2)(M) \in B[M/a]$$
+
+**_Proof_**
 
 - Either $M \Downarrow true$
 
@@ -311,9 +467,11 @@ choosing pivots in a way that minimizes the size of conditionals.
 
 ---
 
-$Nat \doteq Nat$
+> $$Nat \doteq Nat$$
 
-$M \doteq M' \in Nat$ is the extremal (strongest/smallest) statement s.t.
+> $$M \doteq M' \in Nat$$
+
+is the extremal (strongest/least) statement s.t.
 
 - Either ${M \Downarrow 0 \choose M' \Downarrow 0}$
 - Or ${M \Downarrow succ(N) \choose M' \Downarrow succ(N')}$ $N \doteq N' \in
@@ -321,34 +479,43 @@ $M \doteq M' \in Nat$ is the extremal (strongest/smallest) statement s.t.
 - The extremal clause provides a morally-equivalent notion of an induction
   principle.
 
-**Consider the following**
-
 Given some assumptions
 
-### $\frac{}{0\ val}$
+> $$\frac{}{0\ val}$$
 
-### $\frac{}{succ(M)\ val}$
+> $$\frac{}{succ(M)\ val}$$
 
 We can define the Y-combinator
 
-$fix(a.succ(a)) \mapsto \omega \coloneqq succ(fix\ a.succ(a))$
+> $$fix(a.succ(a)) \mapsto \omega \coloneqq succ(fix\ a.succ(a))$$
 
-$\omega \in CoNat$ is thus the _greatest_ solution to the specification, $\omega
-\notin Nat$
+> $$\omega \in CoNat$$
+
+is thus the _greatest_ solution to the specification
+
+> $$\omega \notin Nat$$
 
 We may now define a recursor $R$.
 
-$R \coloneqq rec(M_{\circ};a,b.M_1)(M) \mapsto rec(M_{\circ};a,b.M_1)(M')$ if $M
-\mapsto M'$
+> $$R \coloneqq rec(M_{\circ};a,b.M_1)(M) \mapsto rec(M_{\circ};a,b.M_1)(M')$$
 
-- $R(0) \mapsto M_{\circ}$
-- $R(succ(m)) \mapsto M_1[M, R(M)/a,b]$
+if
+
+> $$M \mapsto M'$$
+
+and
+
+> $$R(0) \mapsto M_{\circ}$$
+
+and
+
+> $$R(succ(m)) \mapsto M_1[M, R(M)/a,b]$$
 
 **Fact**
 
-- $a: Nat \gg B\ type$
-- $M_{\circ} \in B[0/a]$
-- $a: Nat, b: B \gg M_1 \in B[succ(a)/a]$
+> $$a: Nat \gg B\ type$$ $$M_{\circ} \in B[0/a]$$ $$a: Nat, b: B \gg M_1 \in
+
+\> B[succ(a)/a]$$
 
 If $M \in Nat$ then $R(M) \in B[M/a]$
 
@@ -377,14 +544,32 @@ with some conditions).
 
 ---
 
-- $(A_1 \times A_2) \doteq (A'_1 \times A'_2)$ iff $A_1 \doteq A'_1$ and $A_2
-  \doteq A'_2$
+> $$(A_1 \times A_2) \doteq (A'_1 \times A'_2)$$
 
-- $M \doteq M' \in (A_1 \times A_2)$ iff $ \begin{cases} M \Downarrow \langle
-  M_1, M_2 \rangle \\ M' \Downarrow \langle M'_1, M'_2 \rangle \end{cases}$
+$iff$
 
-where $M_n \doteq M'_n \in A_n$, that is, that the values for $M_n$s are
-evaluated under the conditions in $A_n$
+> $$A_1 \doteq A'_1$$
+
+and
+
+> $$A_2 \doteq A'_2$$
+
+and
+
+> $$M \doteq M' \in (A_1 \times A_2)$$
+
+$iff$
+
+> $$ \begin{cases} M \Downarrow \langle M_1, M_2 \rangle \\ M' \Downarrow
+
+\> \langle M'_1, M'_2 \rangle \end{cases}$$
+
+where
+
+> $$M_n \doteq M'_n \in A_n$$
+
+that is, that the values for each $M_n$ are evaluated under the conditions in
+$A_n$
 
 **Fact**
 
@@ -393,9 +578,13 @@ other notation here, e.g. `fst`, etc.)
 
 where
 
-## $\frac{M \mapsto M'}{M.i_1 \mapsto M.i_2}$ $\frac{}{\langle M_1, M_2 \rangle.i \mapsto M_i}\ $
+> $$\frac{M \mapsto M'}{M.i_1 \mapsto M.i_2}$$
 
-and $(i=1,2)$
+and
+
+> $$\frac{}{(M_1, M_2).i \mapsto M_i}\ $$
+
+and $(i=fst,snd)$
 
 A note about logical relations as a tactic: membership in product types is
 defined in terms of equality in each of the component types. Constituent types
@@ -403,11 +592,11 @@ are, in a sense, already given, and then we speak about the composite types.
 
 Going further...
 
-If $M_1 \in A_1$, then $\langle M_1, M_2 \rangle.1 \doteq M_1 \in A_1$, which
-has _no requirement_ on $M_2$.
+If $M_1 \in A_1$, then $(M_1, M_2).1 \doteq M_1 \in A_1$, which has _no
+requirement_ on $M_2$.
 
-Recall that by head-expansion (a.k.a reverse-execution) $\langle M_1, M_2
-\rangle.1 \mapsto M_1$.
+Recall that by head-expansion (a.k.a reverse-execution) $(M_1, M_2).1 \mapsto
+M_1$.
 
 This may seem like a "technical anomaly", but is an important insight into how
 computational type theory relies on _specifications_ as opposed to a grammar for
@@ -422,23 +611,39 @@ about obeying protocols_.
 
 ---
 
-- $A_1 \rightarrow A_2 \doteq A'_1 \rightarrow A'_2$ iff $A_1 \doteq A'_1$
-- $A_2 \doteq A'_2$
+> $$A_1 \rightarrow A_2 \doteq A'_1 \rightarrow A'_2$$
 
-- $M \doteq M' \in A_1 \rightarrow A_2$ iff $M \Downarrow \lambda a.M_2$
-- $M'\Downarrow \lambda a.M'_2$
+$iff$
+
+> $$A_1 \doteq A'_1$$
+
+and
+
+> $$A_2 \doteq A'_2$$
+
+and
+
+> $$M \doteq M' \in A_1 \rightarrow A_2$$
+
+$iff$
+
+> $$M \Downarrow \lambda a.M_2$$
+
+and
+
+> $$M'\Downarrow \lambda a.M'_2$$
 
 where
 
-$a: A \gg M_2 \doteq M\_2 \in A_2$
+> $$a: A \gg M_2 \doteq M\_2 \in A_2$$
 
 Given some assumptions
 
-### $\frac{}{\lambda a.M\ val}$
+> $$\frac{}{\lambda a.M\ val}$$
 
-### $\frac{M \mapsto M'}{ap(M,M1) \mapsto ap(M', M_1)}$
+> $$\frac{M \mapsto M'}{ap(M,M1) \mapsto ap(M', M_1)}$$
 
-### $\frac{}{ap(\lambda a.M_2,M1) \mapsto M_2[M_1/a]}$
+> $$\frac{}{ap(\lambda a.M_2,M1) \mapsto M_2[M_1/a]}$$
 
 The latter is a kind of $\beta$-reduction, or at least a well-specified
 _reduction strategy_.
@@ -447,9 +652,11 @@ _reduction strategy_.
 
 If $M \in A_1 \rightarrow A_2$ and $M_1 \in A_1$ then $ap(M, M_1) \in A_2$.
 
-We can translate this fact into a usual type-theoretic notation like so
+We can translate this into a usual type-theoretic notation like so
 
-### $\frac{\Gamma \vdash M: A_1 \rightarrow A_2\ \Gamma \vdash M_1: A_1}{\Gamma \vdash ap(M,M_1): A_2}$
+> $$\frac{\Gamma \vdash M: A_1 \rightarrow A_2\ \Gamma \vdash M_1: A_1}{\Gamma
+
+\> \vdash ap(M,M_1): A_2}$$
 
 and the inductive definition is the "protocol" or "syntax" of the aforementioned
 fact.
@@ -459,21 +666,33 @@ Nat$?
 
 In an informal sense, one can say
 
-$\forall M_1 \doteq M'_1 \in Nat\ \exists P_1 \doteq P'_1 \in Nat$ such that
-$ap(M,M_1) \doteq ap(M',M'_1) \in Nat$
+> $$\forall M_1 \doteq M'_1 \in Nat\ \exists P_1 \doteq P'_1 \in Nat$$
+
+such that
+
+> $$ap(M,M_1) \doteq ap(M',M'_1) \in Nat$$
 
 This is the reason that starting with the formal syntax is inadequate, because
 an induction rule like
 
-### $\frac{}{\Gamma \vdash M \equiv M': Nat \rightarrow Nat}$
+> $$\frac{}{\Gamma \vdash M \equiv M': Nat \rightarrow Nat}$$
 
 is a derivation tree that results in a quantifier complexity of "there exists
 something". But $\forall\ \exists$ _cannot be captured by $\exists$ alone_!
 
 **Fact**
 
-If $M,M' \in A_1 \rightarrow A_2$ and $a: A_1 \gg ap(M,a) \doteq ap(M',a)$ then
-$M \doteq M' \in A_1 \rightarrow A_2$.
+If
+
+> $$M,M' \in A_1 \rightarrow A_2$$
+
+and
+
+> $$a: A_1 \gg ap(M,a) \doteq ap(M',a)$$
+
+then
+
+> $$M \doteq M' \in A_1 \rightarrow A_2$$
 
 One may call this "function extensionality"
 
@@ -487,32 +706,53 @@ deeper understanding of Gödel's theorem.
 
 ---
 
-- $a: A_1 \times A_2 \doteq a: A'_1 \times A'_2$ iff $A_1 \doteq A'_1$
-- $a: A_1 \gg A_2 \doteq A'_2$
-- $M \doteq M' \in (A_1 \times A_2)$ iff $ \begin{cases} M \Downarrow \langle
-  M_1, M_2 \rangle \\ M' \Downarrow \langle M'_1, M'_2 \rangle \end{cases}$
+> $$a: A_1 \times A_2 \doteq a: A'_1 \times A'_2$$
+
+$iff$
+
+> $$A_1 \doteq A'_1$$
+
+> $$a: A_1 \gg A_2 \doteq A'_2$$
+
+> $$M \doteq M' \in (A_1 \times A_2)$$
+
+$iff$ $\begin{cases} M \Downarrow \langle M_1, M_2 \rangle \\ M' \Downarrow
+\langle M'_1, M'_2 \rangle \end{cases}$
 
 where
 
-$M_1 \doteq M'_1 \in A_1$ and, different from `Prod`, $M_2 \doteq M'_2 \in
-A_2[M_1/a] \doteq A_2[M'_1/a]$
+> $$M_1 \doteq M'_1 \in A_1$$
+
+and, different from `Prod`,
+
+> $$M_2 \doteq M'_2 \in A_2[M_1/a] \doteq A_2[M'_1/a]$$
 
 which encodes the _dependency_ between $A_1$ and $A_2$.
 
 ### There exists a type system containing a type `Dependent Fn`
 
-- $a: A_1 \rightarrow A_2 \doteq a: A'_1 \rightarrow A'_2$ iff $A_1 \doteq A'_1$
-- $a: A_1 \gg A_2 \doteq A'_2$
+---
+
+> $$a: A_1 \rightarrow A_2 \doteq a: A'_1 \rightarrow A'_2$$
+
+$iff$
+
+> $$A_1 \doteq A'_1 - a: A_1 \gg A_2 \doteq A'_2$$
 
 From the definition, it's easy enough to look back at the definitions / initial
 transitions for `Fn` and subsitute the following, as we did for `Prod`
 
-$a: A_1 \gg M_2 \doteq M'_2 \in A_2(a)$
+> $$a: A_1 \gg M_2 \doteq M'_2 \in A_2(a)$$
 
-The meaning of the change is
+The meaning of the change is as follows:
 
-- If $M_1 \doteq M'_1 \in A_1$ then $M_2[M_1/a] \doteq M_2[M'_1/a] \in
-  A_2[M_1/a] \doteq A_2[M'_1/a]$
+If
+
+> $$M_1 \doteq M'_1 \in A_1$$
+
+then
+
+> $$M_2[M_1/a] \doteq M_2[M'_1/a] \in A_2[M_1/a] \doteq A_2[M'_1/a]$$
 
 **Fact**
 
@@ -529,22 +769,108 @@ The meaning of the change is
 This is a development of a simple, _inherently computational_ dependent type
 system
 
-- $\tau \coloneqq Bool\ |\ Nat\ |\ a_1:A_1 \times A_2\ |\ a_1:A_1 \rightarrow
-  A_2$
+> $$\tau \coloneqq Bool\ |\ Nat\ |\ a_1:A_1 \times A_2\ |\ a_1:A_1 \rightarrow
+
+\> A_2$$
 
 which can be used to prove an earlier claim
 
-- $if(17;true)(M) \in if(Nat,Bool)(M)$
+> $$if(17;true)(M) \in if(Nat,Bool)(M)$$
 
-## [Lecture 3][3]
+## Part Three
+
+[Lecture 3][3]
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GzPMZ6RsihU?si=DRNb42qoCfiUqsg6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## [Lecture 4][4]
+### Formalisms
+
+Formal type theory is inductively defined by derivation rules.
+
+We want to express some statements regarding what is called "definitional
+equality".
+
+> $$\Gamma \vdash A: Type$$
+
+> $$\Gamma \vdash M:A$$
+
+> $$\Gamma \vdash A \equiv A^{\prime}$$
+
+> $$\Gamma \vdash M \equiv M^{\prime}:A$$
+
+One can write down axioms of the typical form:
+
+> $$ \frac{}{\Gamma x:A,\Gamma^{\prime}\vdash x:A} $$
+
+> $$\frac{\Gamma\vdash M:A\ \Gamma\vdash A \equiv A^{\prime}}{\Gamma\vdash
+
+\> M:A^{\prime}}$$
+
+> $$\frac{\Gamma \vdash A_{1}\ \Gamma \vdash A_{2}}{\Gamma
+
+\> \vdash A_{1} \times A_{2}}$$
+
+> $$\frac{\Gamma\ \vdash M_{1}: A_{1}\ \ \Gamma\ M_{2}: A_{2}}{\Gamma\ \vdash
+
+\> (M_{1},M_{2}): A_{1} \times A_{2}}$$
+
+> $$\frac{\Gamma\ \vdash M: A_{1} \times A_{2}}{\Gamma\ \vdash M.i: A_{i}}$$
+
+where $i$ is one of the projections of $\_\times\_$.
+
+> $$\frac{\Gamma\ \vdash M_{1}: A_{1}\ \ \Gamma\ \vdash M_{2}: A_{2}}{\Gamma
+
+\> \vdash (M_{1},M_{2}).i \equiv M_{i}: A_{i}}$$
+
+> $$\frac{\Gamma\ \vdash M: A_{1} \times A_{2}}{\Gamma\ \vdash (M_{1},M_{2})
+
+\> \equiv M: A_{1} \times A_{2}}$$
+
+### Formal logic statements and their corresponding types
+
+> $$\top^{\star} \implies 1$$
+
+called `unit`
+
+> $$\bot^{\star} \implies 0$$
+
+called `void`
+
+> $$(\Phi_{1} \land \Phi_{2})^{\star} \implies \Phi^{\star}_{1} \times
+
+\> \Phi^{\star}_{2}$$
+
+called `product`
+
+> $$(\Phi_{1} \lor \Phi_{2})^{\star} \implies \Phi^{\star}_{1} +
+
+\> \Phi^{\star}_{2}$$
+
+called `sum`
+
+> $$(\Phi_{1} \supset \Phi_{2})^{\star} \implies \Phi^{\star}_{1} \to
+
+\> \Phi^{\star}_{2}$$
+
+called `function`
+
+> $$(\forall a:A . \Phi_{a})^{\star} \implies a:A \to \Phi^{\star}_{a}$$
+
+called `function[a]`
+
+> $$(\exists a:A . \Phi_{a})^{\star} \implies a:A \times \Phi^{\star}_{a}$$
+
+called `product[a]`
+
+## Part Four
+
+[Lecture 4][4]
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pfOQ97iCIsk?si=3r0neFvVaQiNiC6h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## [Lecture 5][5]
+## Part Five
+
+[Lecture 5][5]
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RhDuRmg-SdA?si=IAec8tT6aNKafyqy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
