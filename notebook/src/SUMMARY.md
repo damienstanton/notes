@@ -3,9 +3,6 @@
 - [About](./about.md)
   - [Me](./me.md)
 
-- [Posts](./posts.md)
-  - [Placeholder](./placeholder.md)
-
 - [Independent study](./open_source.md)
   - [Computational Type Theory](./harper_ctt.md)
   - [Algebraic Effects and Handlers](./bauer_algeff.md)
