@@ -21,7 +21,7 @@ I am fascinated by PL theory, type theory, and the idea of the
 
 My independent research while a part-time graduate student is in the study of the intersection of three topics.
 
-1. Formal modeling of autonomous systems & AI models.
+1. Formal modeling of autonomous systems & artificial intelligence.
 2. Distributed systems & type theory.
 3. Robotics & embedded systems.
 
